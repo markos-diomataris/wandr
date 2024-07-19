@@ -1,0 +1,14 @@
+job:
+  chdir: True
+  env_set:
+        # In case wandb process interferes with
+        # hydra's multi-launcher
+    # WANDB_START_METHOD: thread
+    HYDRA_FULL_ERROR: 1
+
+verbose: False
+run:
+  dir: "experiments/${project}/${run_hash}"
+# callbacks:
+#   save_job_info:
+#     _target_: hydra.experimental.callbacks.PickleJobInfoCallback

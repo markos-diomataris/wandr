@@ -1,0 +1,10 @@
+_target_: evaluators.motion_evaluator.MotionEvaluator
+metrics_to_eval:
+# - 'foot_skating'
+- 'foot_skating_percentage'
+- 'goal_reached'
+- 'goal_distance'
+- 'wrist_velocity'
+skating_threshold_height: 0.05
+reach_threshold: 0.10  # in meters
+reached_policy: 'any'

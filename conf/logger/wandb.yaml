@@ -1,0 +1,9 @@
+job_type: 'evaluate'
+notes: ''
+id: ${run_hash}
+group:
+tags:
+mode: "online"
+# project: 'CVPR24-Humans'
+project: ${project}
+dir: '.'

@@ -1,0 +1,19 @@
+defaults:
+  - base_motion_prior
+_target_: models.motion_prior_mlp_cvae_goal.MotionPriorMLPCVAEGoal
+
+state_features:
+- "body_transl"
+- "body_orient"
+- "body_pose"
+
+delta_features:
+- "body_transl_delta_pelv_xy"
+- "body_orient_delta"
+- "body_pose_delta"
+
+x_features:
+- "body_transl_z"
+- "body_orient_xy"
+- "body_pose"
+- "body_transl_intention_pelv_xy"

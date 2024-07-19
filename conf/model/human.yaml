@@ -1,0 +1,49 @@
+defaults:
+  - base_motion_prior
+_target_: models.base_motion_prior.Human
+
+layernorm: True
+dropout: 0.03
+
+state_features:
+- "body_transl"
+- "body_orient"
+- "body_pose"
+
+delta_features:
+- "body_transl_delta_pelv_xy"
+- "body_orient_delta"
+- "body_pose_delta"
+
+x_features:
+- "body_transl_z"
+- "body_orient_xy"
+- "body_pose"
+- "right_wrist_intention_pelv_xy"
+- "pelvis_transl_exp_delta_pelv_xy"
+- "body_z_orient_exp_delta_intention_pelv_xy"
+# - "pelvis_transl_intention_pelv_xy"
+# - "body_z_orient_intention_pelv_xy"
+# - "right_wrist_exp_distance"
+# - "pelvis_xy_exp_distance"
+# - "rwrist_full_local_intention"
+
+intention_features:
+- "right_wrist_intention_pelv_xy"
+- "pelvis_transl_exp_delta_pelv_xy"
+- "body_z_orient_exp_delta_intention_pelv_xy"
+# - "pelvis_transl_intention_pelv_xy"
+# - "body_z_orient_intention_pelv_xy"
+# - "right_wrist_exp_distance"
+# - "pelvis_xy_exp_distance"
+# - "rwrist_full_local_intention"
+
+distance_scale: 2.0
+max_distance: 2.0
+timeless: False
+zero_intention: False
+
+phase_logic: null
+# phase_logic:
+#   phase_distance: 1.0 
+#   phase_scale: 7

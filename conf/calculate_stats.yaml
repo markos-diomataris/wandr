@@ -1,0 +1,12 @@
+defaults:
+  - _self_
+  - dataset: amass_dataset
+  - paths: paths
+load_files:
+# - "${paths.data_path}/amass_smplxn/GRAB/GRAB.pth.tar"
+- "${paths.data_path}/amass_smplxn/amass/amass.pth.tar"
+- "${paths.data_path}/circle_smplxn/circle.pth.tar"
+# - "${paths.data_path}/amass_smplxn/circle_processed/circle.pth.tar"
+filename: ???
+statistics_file: "${paths.statistics_path}/statistics_${.filename}.npy"
+statistics_path:

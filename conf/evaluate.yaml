@@ -1,0 +1,51 @@
+hydra:
+  job:
+    chdir: True
+    env_set:
+          # In case wandb process interferes with
+          # hydra's multi-launcher
+      # WANDB_START_METHOD: thread
+      HYDRA_FULL_ERROR: 1
+
+  verbose: False
+  run:
+    dir: "evaluations/${project}/${model_hash}/${run_hash}/${now:%Y-%m-%d_%H-%M-%S}"
+
+defaults:
+  - _self_
+  # - hydra: hydra
+  - dataloader: amass_dataloader
+  - goal_dataloader: goal_dataloader
+  - dataset: amass_dataset
+  - paths: paths
+  - motion_filter: amass_filter
+  - rendering: rendering_eval
+  - logger: wandb
+  - evaluator: motion_evaluator
+
+run_hash: ${generate_id:${resume_hash}}
+debug: False
+resume_hash:  # never set this
+
+# loading model parameters
+model_project: 'CVPR24-Humans'
+model_hash: ???
+model_filename: 'last'
+model_path: "${hydra:runtime.cwd}/experiments/motion_prior/${model_hash}/checkpoints/${model_filename}.ckpt"
+load_model_from_artifact: False
+artifact_tag: 'latest'
+model_artifact: "markos_mpi/${model_project}/model-${model_hash}:${artifact_tag}"
+
+statistics_file: "statistics_amass_circle_smplx.npy"
+# statistics_file: "statistics_amass_circle.py"
+statistics_path: "${paths.statistics_path}/${statistics_file}"
+save_meshes: False
+
+project: ${model_project}
+smpl_type: 'smplx'
+num_workers: 0
+batch_size: 8
+motion_duration: 8.0
+data_idx: 13 
+pick_random_idx: False
+trial: -1

@@ -1,0 +1,116 @@
+defaults:
+  - _self_
+  - hydra: hydra
+  - model: human
+  - optimizer: adam
+  - scheduler: linear_lr
+  # - scheduler: reduce_on_plateau
+  - dataloader: amass_dataloader
+  - dataset: amass_dataset
+  - motion_filter: amass_filter
+  - paths: paths
+  - rendering: rendering
+  - /hydra/callbacks:
+    - my_callback
+
+project: "motion_prior"
+resume_hash: # set if you want run_hash to be ignored and resumption of resume_hash to be performed
+run_hash: ${generate_id:${resume_hash}}
+debug: False
+dataset: "amass"
+render_train_outputs: True
+
+statistics_file: "statistics_amass_circle_smplx.npy"
+# statistics_file: "statistics_amass_circle.py"
+statistics_path: "${paths.statistics_path}/${statistics_file}"
+
+# experiment details 
+watch_model: False
+log_freq: 50
+log: 'all'
+
+wandb_logger:
+  _target_: pytorch_lightning.loggers.WandbLogger
+  resume: 'allow'
+  job_type: 'train'
+  notes: ''
+  id: ${run_hash}
+  group:
+  tags: ['amass', 'smplx']
+  mode: "online"
+  # project: 'HOI-common-sense'
+  # project: 'Obstacle Avoidance'
+  project: 'Debugging'
+  # project: 'CVPR24-Humans'
+  save_dir: ${hydra:runtime.cwd}
+  log_model: False
+
+
+# lightning checkpoint callback
+trainer:
+  _target_: pytorch_lightning.Trainer
+  default_root_dir: ${paths.chkpnt_dir}
+  max_epochs: 801
+  accelerator: 'gpu'
+  devices: 1
+  # strategy: "ddp"
+  # strategy: "ddp_find_unused_parameters_false"
+  fast_dev_run: False
+  overfit_batches: 0.0
+  enable_progress_bar: True
+  # auto_scale_batch_size:
+  # accumulate_grad_batches:
+  gradient_clip_val: 
+  callbacks:
+  logger:
+  # resume_from_checkpoint: 
+  precision: 32
+  check_val_every_n_epoch: 50
+  num_sanity_val_steps:
+
+# smpl_type: 'smplx'
+batch_size: 128
+num_workers: 0
+
+# lightning checkpoint callback
+model_checkpoint:
+  _target_: pytorch_lightning.callbacks.ModelCheckpoint
+  dirpath: ${paths.chkpnt_dir}
+  filename: "model-{epoch}"
+  # monitor: "val/loss_monitor"
+  # mode: "min"
+  save_top_k: -1
+  save_last: True
+  every_n_epochs: 400
+
+# training parameters
+monitor_loss: "loss"
+
+# preprocessing parameters
+preproc:
+  joints_dump_path: "/is/cluster/fast/mdiomataris/grab_joints_new"
+  split_seed: 0
+  calculate_minmax: True
+  generate_joint_files: True
+  use_cuda: True
+
+# dataloading parameters
+dl:
+  framerate_ratio: 4
+  chunk_duration: 8.0
+  trim_nointeractions: False
+  force_recalculate_stats: False
+
+# augmentation parameters
+aug:
+  undo_interaction_prob: 0.1
+  out_of_reach_prob: 0.1
+  min_oor_distance: 0.05
+  max_oor_distance: 0.3
+  random_rotate: False
+  random_rot_type: "3d"
+  framerate_dev: 0
+
+loss_type: "mse"
+joint_loss: True
+n_body_joints: 22

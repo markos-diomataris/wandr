@@ -1,0 +1,6 @@
+_target_: motion_filter.amass_filter.AmassFilter
+file_paths:
+- ${paths.data_path}/ignore_sequences/BMLrub.json
+- ${paths.data_path}/ignore_sequences/MPIHDM05.json
+feet_height_threshold: 0.2
+exclude_grab: False

@@ -1,0 +1,47 @@
+.vscode
+outputs
+playground
+__pycache__
+./outputs
+~/launched_jobs
+wandb
+checkpoints
+.ipynb_checkpoints
+aitviewer
+evaluations
+evaluations_tbm
+imgui.ini
+*.mp4
+*.png
+*.jpeg 
+*.npy
+*.pkl
+# *.npz
+*.txt
+*.out
+*.json
+*.ckpt
+teach
+min_max_feats.json
+run.sh
+statistics.npy
+experiments_local
+misc_data
+humor
+experiments
+edit_motion_optimization.py
+shoot_ray.cpp
+test_pos.py
+conf/edit_motion_optimization.yaml
+conf/model/agent.yaml
+conf/optimization_loss/joint_loss.yaml
+models/agent.py
+wandr_env
+
+data_sl
+data/*
+!data/body_models/
+# Ignore all files in the data/body_models/ directory
+data/body_models/*
+# But do not ignore the .gitignore file itself inside the data/body_models/ directory
+!data/body_models/.gitignore

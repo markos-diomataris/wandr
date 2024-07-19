@@ -1,0 +1,45 @@
+defaults:
+  - base_module
+_target_: models.base_motion_prior.BaseMotionVAE
+statistics_path: ${statistics_path}
+# statistics_path: "${paths.statistics_path}/statistics_amass_circle.npy"
+norm_type: "std"
+latent_dim: 64
+layers_enc: 15
+layers_dec: ${.layers_enc}
+smplx_path: ${paths.smplx_models_path}
+smpl_type: "smplx"
+architecture: "mlp"
+# layers_n: 6
+state_features:
+- "body_transl"
+- "body_orient"
+- "body_pose"
+
+delta_features:
+- "body_transl_delta_pelv_xy"
+- "body_orient_delta"
+- "body_pose_delta"
+
+x_features:
+- "body_transl_z"
+- "body_orient_xy"
+- "body_pose"
+
+renderer:
+
+# various training parameters
+train_hparams:
+  kl_free_bit_thrs: 0.05 
+  max_ar_steps: 10  # ~0.3 sec
+  kl_beta: 1e-2
+  kl_beta_steps_until_max: 10000
+  ar_increment_epochs: 5
+  randomise_ar_steps: True
+  rendering: ${rendering}
+  joint_loss: True
+  loss_type: "mse"
+  monitor_loss: ${monitor_loss}
+
+# about features
+feats_dims: ${dataset.feats_dims}

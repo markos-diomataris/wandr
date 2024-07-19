@@ -1,0 +1,13 @@
+_target_: dataset.goal_dataset.CylinderDataModule
+
+batch_size: ${batch_size}
+num_workers: ${num_workers}
+dataset:
+  _target_: dataset.goal_dataset.CylinderDataset
+  min_radius: 1.0
+  max_radius: 5.0
+  max_height: 1.8
+  num_points_height: 5
+  num_points_radius: 3
+  num_points_circle: 5
+  per_sample_trials: 5

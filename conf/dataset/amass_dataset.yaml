@@ -1,0 +1,131 @@
+_target_: dataset.amass_dataset.AmassDataset
+data:
+do_augmentations: False
+statistics_path: ${statistics_path}
+# statistics_path: ${paths.statistics_path}/statistics_amass_circle.npy
+smplx_models_path: ${paths.smplx_models_path}
+goal:
+  max_radious: 2.0
+  min_radious: ${.max_radious}
+  max_height: 1.0
+  min_height: ${.max_height}
+  max_rads: 2.0
+  min_rads: ${.max_rads}
+
+picking_goal_logic:
+  # mode: 'pick_any'  # could also be frame based
+  # mode: 'fixed_offset'
+  # mode: 'use_goal_if_exists_else_any'
+  mode: 'only_use_goal_when_close'
+  calc_dist_joint: 0
+  lookahead_frames: 30  # in frames
+  cutoff_distance: 1.5  # in meters
+
+# the sequence parser performs all wanted augmetations, e.g. framerate subsampling
+# and/or various augmentations
+sequence_parser:
+  _target_: dataset.sequence_parser_amass.SequenceParserAmass 
+  framerate_ratio: 1
+  chunk_duration: 8.0
+  random_chunk: False
+  random_flip: False
+
+rot_repr: "6d"
+norm_type: "std"
+
+load_feats:
+- "body_transl"
+- "body_transl_delta"
+- "right_wrist_exp_distance"
+- "pelvis_xy_exp_distance"
+- "body_transl_delta_pelv"
+- "body_transl_delta_pelv_xy"
+# - "body_transl_intention"
+# - "rwrist_full_local_intention"
+# - "body_z_orient_intention"
+- "intention_goal_frame"
+- "plan_window"
+# - "body_z_orient_intention_pelv_xy"
+# - "body_transl_intention_goal"
+# - "right_wrist_intention_pelv_xy"
+# - "right_wrist_intention_pelv_xy_exp_z"
+# - "right_wrist_intention"
+# - "right_wrist_intention_goal"
+# - "intention_lookahead_frames"
+# - "body_transl_intention_pelv_xy"
+# - "pelvis_transl_intention_pelv_xy"
+- "body_transl_z"
+- "body_orient"
+- "body_pose"
+- "body_orient_delta"
+- "body_pose_delta"
+- "body_orient_xy"
+- "body_joints"
+- "goal"
+- "motion_completion_ratio"
+# - "body_joints_rel"
+# - "body_joints_vel"
+# - "object_transl"
+# - "object_transl_rel"
+# - "object_transl_vel"
+# - "object_orient"
+# - "obj_contact_bin"
+# - "hands_contact_bin"
+# - "obj_wrists_dist"
+# - "wrist_joints_transl"
+# - "wrist_joints_transl_rel"
+# - "wrist_joints_vel"
+# - "joint_global_oris"
+# - "joint_ang_vel"
+# - "wrists_ang_vel"
+# - "wrists_ang_vel_euler"
+# - "active_grasp_frames"
+# - "index_tips_vel"
+
+feats_dims:
+  body_transl: 3
+  body_transl_delta: 3
+  right_wrist_exp_distance: 1
+  pelvis_xy_exp_distance: 1
+  intention_goal_frame: 1
+  plan_window: 2
+  body_transl_delta_pelv: 3
+  body_transl_delta_pelv_xy: 3
+  body_transl_intention_goal: 3
+  right_wrist_intention_pelv_xy: 3
+  right_wrist_intention_pelv_xy_exp_z: 3
+  right_wrist_intention: 3
+  right_wrist_intention_goal: 3
+  body_transl_intention: 3
+  rwrist_full_local_intention: 7
+  body_transl_intention_pelv_xy: 3
+  pelvis_transl_intention_pelv_xy: 3
+  pelvis_transl_exp_delta_pelv_xy: 3
+  body_z_orient_intention: 3
+  body_z_orient_intention_pelv_xy: 3
+  body_z_orient_exp_delta_intention_pelv_xy: 3
+  body_transl_z: 1
+  body_orient: 6
+  body_orient_delta: 6
+  body_orient_xy: 6
+  body_pose: 126
+  body_pose_delta: 126
+  body_joints: 66
+  body_joints_rel: 66
+  body_joints_vel: 66
+  object_transl: 3
+  object_transl_rel: 3
+  object_transl_vel: 3
+  object_orient: 6
+  obj_contact_bin: 1
+  obj_wrists_dist: 6
+  wrist_joints_transl: 6
+  wrist_joints_transl_rel: 6
+  wrist_joints_vel: 6
+  index_tips_vel: 6
+  joint_ang_vel: 6
+  wrists_ang_vel: 6
+  hands_contact_bin: 2
+  goal: 3
+  motion_completion_ratio: 1
+  trident_sensor: 3

@@ -1,0 +1,28 @@
+_target_: dataset.amass_dataset.AmassDataModule
+
+load_files:
+# - "${paths.data_path}/circle_smplxn_goal/circle_small.pth.tar"
+# - "${paths.data_path}/amass_smplxn/GRAB/GRAB.pth.tar"
+# - "${paths.data_path}/amass_smplxn/amass/amass.pth.tar"
+- "${paths.data_path}/amass_smplxn/amass/amass_small.pth.tar"
+# - "${paths.data_path}/circle_smplxn_goal/circle.pth.tar"
+# - "${paths.data_path}/amass_smplxn/amass/amass.pth.tar"
+# - "${paths.data_path}/amass_smplxn/circle_processed/circle.pth.tar"
+debug_files:
+# - "${paths.data_path}/circle_smplxn_goal/circle.pth.tar"
+# - "/home/mdiomataris/circle.pth.tar"
+- "${paths.data_path}/amass_smplxn/amass/amass_small.pth.tar"
+# - "${paths.data_path}/amass/TCD_handMocap/TCD_handMocap.pth.tar"
+
+shuffle_datasets:
+- True
+- False
+- False
+
+dataset_cfg: ${dataset}
+use_debug_dataset: ${debug}
+split_seed: 0
+motion_filter: ${motion_filter}
+
+batch_size: ${batch_size}
+num_workers: ${num_workers}

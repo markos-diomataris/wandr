@@ -1,0 +1,5 @@
+_target_: models.base_module.BaseModule
+optimizer: ${optimizer}
+scheduler: ${scheduler}
+train_hparams:
+  log_gradnorm: False

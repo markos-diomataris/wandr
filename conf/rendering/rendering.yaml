@@ -1,0 +1,21 @@
+dir: ${paths.renderings_dir}
+in_training: True
+in_testing: True
+every_epochs: 50
+ar_steps: 149
+train_ids:
+- 0
+- 1
+- 2
+- 3
+- 4
+- 5
+test_ids:
+- 1 
+- 2 
+- 3 
+- 5 
+- 8 
+# - 13 
+# - 17 
+# - 16 

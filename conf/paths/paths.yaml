@@ -1,0 +1,8 @@
+# input directories
+datapath_name: "data_sl"
+data_path: "${hydra:runtime.cwd}/${datapath_name}"
+smplx_models_path: "${.data_path}/body_models/"
+statistics_path: "${hydra:runtime.cwd}/deps"
+# output directories (they should be all relative to encofce self-contained experiments)
+chkpnt_dir: "checkpoints"
+renderings_dir: "rendered_outputs"
