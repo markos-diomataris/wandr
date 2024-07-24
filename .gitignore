@@ -45,3 +45,4 @@ data/*
 data/body_models/*
 # But do not ignore the .gitignore file itself inside the data/body_models/ directory
 !data/body_models/.gitignore
+!deps/statistics_amass_circle_smplx.npy
