@@ -18,6 +18,7 @@ imgui.ini
 *.pkl
 # *.npz
 *.txt
+!requirements.txt
 *.out
 *.json
 *.ckpt
